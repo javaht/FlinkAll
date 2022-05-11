@@ -9,7 +9,7 @@ object StreamWordCount {
   def main(args: Array[String]): Unit = {
 
     val env  = StreamExecutionEnvironment.getExecutionEnvironment
-
+    env.setParallelism(1)//设置核数为1  并行度为1
     val inputStream: DataStream[String] = env.socketTextStream("192.168.20.62", 7777) //接收socket文本流
 
     val line: DataStream[String] = inputStream.flatMap(x => x.split(" ")).filter(x=>x.nonEmpty)
