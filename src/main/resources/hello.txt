@@ -1,6 +1,0 @@
-hello scala
-hello spark
-hello zhou
-hello heng
-hello zhang
-hello li
