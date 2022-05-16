@@ -1,10 +1,7 @@
-package com.zht.apiTest;
+package com.zht.transform;
 
 import org.apache.flink.api.common.serialization.SimpleStringSchema;
-import org.apache.flink.api.common.typeinfo.TypeHint;
 import org.apache.flink.api.common.typeinfo.Types;
-import org.apache.flink.api.java.operators.FlatMapOperator;
-import org.apache.flink.api.java.tuple.Tuple;
 import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.connector.kafka.source.KafkaSource;
 import org.apache.flink.streaming.api.datastream.DataStreamSource;

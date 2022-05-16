@@ -1,11 +1,8 @@
-package com.zht.apiTest;
+package com.zht.transform;
 
 import org.apache.flink.api.common.functions.Partitioner;
 import org.apache.flink.api.java.functions.KeySelector;
-import org.apache.flink.streaming.api.datastream.DataStreamSource;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
-import org.apache.flink.streaming.api.functions.source.RichParallelSourceFunction;
-import org.apache.flink.streaming.api.functions.source.SourceFunction;
 
 public class TransFormPartitionTest {
     public static void main(String[] args) throws Exception {

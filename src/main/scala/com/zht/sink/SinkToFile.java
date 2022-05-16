@@ -1,6 +1,7 @@
 package com.zht.sink;
 
 import com.zht.transform.Event;
+import org.apache.flink.api.common.eventtime.*;
 import org.apache.flink.api.common.serialization.SimpleStringEncoder;
 import org.apache.flink.core.fs.Path;
 import org.apache.flink.streaming.api.datastream.DataStreamSource;
@@ -15,6 +16,7 @@ public class SinkToFile {
 
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         env.setParallelism(4);
+        env.getConfig().setAutoWatermarkInterval(100);//100毫秒触发一次
         DataStreamSource<Event> stream = env.fromElements(
                 new Event("Mary", "./home/3", 1000L*2),
                 new Event("Cary", "./home", 600 * 1000L),
@@ -24,6 +26,21 @@ public class SinkToFile {
                 new Event("Cary", "./home/3", 600 * 1000L+1)
 
         );
+        stream.assignTimestampsAndWatermarks( new WatermarkStrategy<Event> (){
+            @Override
+            public WatermarkGenerator<Event> createWatermarkGenerator(WatermarkGeneratorSupplier.Context context) {
+
+                return null;
+            }
+
+            @Override
+            public TimestampAssigner<Event> createTimestampAssigner(TimestampAssignerSupplier.Context context) {
+                return WatermarkStrategy.super.createTimestampAssigner(context);
+            }
+        });
+
+
+
 
         StreamingFileSink<String> build = StreamingFileSink.<String>forRowFormat(new Path("./output"), new SimpleStringEncoder<>("UTF-8"))
                 .withRollingPolicy(
