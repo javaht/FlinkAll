@@ -17,7 +17,8 @@ public class TransFormPartitionTest {
                 new Event("Bob", "./cart", 2000L),
                 new Event("Alice", "./prod?id=100", 3000L),
                 new Event("Bob", "./prod?id=1", 3300L)
-        );*/
+        );
+*/
 
         //1.随机分区
     //    stream.shuffle().print().setParallelism(4);

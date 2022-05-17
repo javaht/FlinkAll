@@ -1,6 +1,8 @@
 package com.zht.transform;
 
+import org.apache.flink.api.java.functions.KeySelector;
 import org.apache.flink.streaming.api.datastream.DataStreamSource;
+import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 
 
@@ -20,13 +22,13 @@ public class TransformSimpleAggTest {
         );
 
         //按键分组之后进行聚合 提取当前用户最近一次访问数据
- /*       stream.keyBy(new KeySelector<Event, String>() {
+        SingleOutputStreamOperator<Event> timestamp = stream.keyBy(new KeySelector<Event, String>() {
             @Override
             public String getKey(Event event) throws Exception {
                 return event.user;
             }
-        }).max("timestamp").print();
-*/
+        }).max("timestamp");
+
 
         stream.keyBy( data -> data.user).max("timestamp").print();
 
