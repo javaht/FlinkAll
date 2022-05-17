@@ -1,4 +1,4 @@
-package com.zht.WaterMark;
+package com.zht.Watermark;
 
 import com.zht.transform.Event;
 import org.apache.flink.api.common.eventtime.*;
@@ -46,6 +46,7 @@ public class WatermarkTest {
                         return element.timestamp;
                     }
                 }));
+
 
 
         env.execute("WatermarkTest");
