@@ -51,13 +51,14 @@ public class FlinkWaterMark {
         .map(data-> Tuple2.of(data.user,1L))
                 .returns(Types.TUPLE(Types.STRING, Types.LONG))
                 .keyBy(data->data.f0)
-                //  .countWindow(10);//滚动窗口
-                // .countWindow(10,2) //滑动计数窗口 传一个参数就是滚动窗口  传两个参数就是滑动窗口
+                 // .countWindow(10);//滚动窗口
+                //.countWindow(10,2) //滑动计数窗口 传一个参数就是滚动窗口  传两个参数就是滑动窗口
 
 
                 //.window(EventTimeSessionWindows.withGap(Time.seconds(2))); //会话窗口
-                //.window(SlidingEventTimeWindows.of(Time.hours(1),Time.minutes(5)))  //滑动事件时间窗口
+               // .window(SlidingEventTimeWindows.of(Time.hours(1),Time.minutes(5)))  //滑动事件时间窗口
                 .window(TumblingEventTimeWindows.of(Time.seconds(10)))//滚动事件时间窗口
+
 
 
 
