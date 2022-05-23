@@ -28,7 +28,7 @@ public class TopN_ProcessAllWindowFunction {
         SingleOutputStreamOperator<Event> stream = env.addSource(new ClickSource())
                 .assignTimestampsAndWatermarks(WatermarkStrategy.<Event>forBoundedOutOfOrderness(Duration.ZERO)
                         .withTimestampAssigner((SerializableTimestampAssigner<Event>) (element, recordTimestamp) -> element.timestamp));
-        stream.print();
+        //stream.print();
           //直接开窗 收集所有数据
         stream.map(data->data.user)
                         .windowAll(SlidingEventTimeWindows.of(Time.seconds(10),Time.seconds(5)))
