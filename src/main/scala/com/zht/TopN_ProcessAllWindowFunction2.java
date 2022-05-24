@@ -42,7 +42,7 @@ public class TopN_ProcessAllWindowFunction2 {
                 .aggregate(new UrlCountView.UrlViewCountAgg(), new UrlCountView.UrlViewCountResult());
 
         urlCountStream.print("Url count");
-        urlCountStream.keyBy(data -> data.windowEnd).process(new TopNProcessResult(2)).print();
+       urlCountStream.keyBy(data -> data.windowEnd).process(new TopNProcessResult(2)).print();
 
 
         env.execute();
@@ -89,7 +89,7 @@ public static  class TopNProcessResult  extends KeyedProcessFunction<Long,UrlVie
         result.append("------------------------------"+"\n");
         result.append("窗口结束时间  "+new Timestamp(ctx.getCurrentKey()) +"\n");
         //取List前两个 包装信息输出
-        for(int i=0;i<2;i++){
+        for(int i=0;i<n;i++){
             UrlViewCount currTuple = urlViewCountArrayList.get(i);
             String info ="No."+(i+1)+"  "+"url: "+currTuple.url+"  "+"访问量："+currTuple.count+"\n";
             result.append(info);
