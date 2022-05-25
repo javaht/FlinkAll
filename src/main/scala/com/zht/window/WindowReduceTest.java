@@ -27,13 +27,8 @@ public class WindowReduceTest {
                             public long extractTimestamp(Event element, long recordTimestamp) {
                                 return element.timestamp;
                             }
-                        }));          stream.map(new MapFunction<Event, Tuple2<String, Long>>() {
-                    @Override
-                    public Tuple2<String, Long> map(Event value) throws Exception {
-                        // 将数据转换成二元组，方便计算
-                        return Tuple2.of(value.user, 1L);
-                    }
-                })
+                        }));
+        stream.map((MapFunction<Event, Tuple2<String, Long>>) value -> {return Tuple2.of(value.user, 1L);})
                 .keyBy(r -> r.f0)
                 // 设置滚动事件时间窗口
                 .window(TumblingEventTimeWindows.of(Time.seconds(5)))

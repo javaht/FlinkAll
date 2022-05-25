@@ -31,7 +31,9 @@ public class KeyPreFunEventTimerTest {
                         out.collect(ctx.getCurrentKey()+"数据到达时间："+new Timestamp(currTs)+"   当前的watermark；"+ctx.timerService().currentWatermark());
                         //注册一个10s后的定时器
                         ctx.timerService().registerEventTimeTimer(currTs+10000);
+
                     }
+
 
                     @Override
                     public void onTimer(long timestamp, KeyedProcessFunction<String, Event, String>.OnTimerContext ctx, Collector<String> out) throws Exception {

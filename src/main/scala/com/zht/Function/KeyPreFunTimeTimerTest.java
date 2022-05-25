@@ -34,10 +34,10 @@ public class KeyPreFunTimeTimerTest {
                              ctx.timerService().registerEventTimeTimer(currTs + 10 * 1000);
                          }
 
-                                 @Override
-                                 public void onTimer(long timestamp, KeyedProcessFunction<String, Event, String>.OnTimerContext ctx, Collector<String> out) throws Exception {
-                                     out.collect(ctx.getCurrentKey()+"定时器触发时间："+new Timestamp(timestamp));
-                                 }
+                         @Override
+                         public void onTimer(long timestamp, KeyedProcessFunction<String, Event, String>.OnTimerContext ctx, Collector<String> out) throws Exception {
+                             out.collect(ctx.getCurrentKey()+"定时器触发时间："+new Timestamp(timestamp));
+                         }
                              }).print();
 
 

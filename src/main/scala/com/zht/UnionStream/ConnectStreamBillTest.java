@@ -43,8 +43,7 @@ public class ConnectStreamBillTest {
                 .withTimestampAssigner((SerializableTimestampAssigner<Tuple4<String, String, String, Long>>) (element, recordTimestamp) -> element.f3)
         );
 
-        appStream.keyBy(data->data.f0)
-                .connect(thirdpartStream.keyBy(data->data.f0))
+        appStream.keyBy(data->data.f0).connect(thirdpartStream.keyBy(data->data.f0))
                 .process(new OrderMatchResult()).print();
 
         env.execute("");
