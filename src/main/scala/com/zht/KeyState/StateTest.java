@@ -10,6 +10,7 @@ import org.apache.flink.api.common.functions.FlatMapFunction;
 import org.apache.flink.api.common.functions.ReduceFunction;
 import org.apache.flink.api.common.functions.RichFlatMapFunction;
 import org.apache.flink.api.common.state.*;
+import org.apache.flink.api.common.time.Time;
 import org.apache.flink.configuration.Configuration;
 import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
@@ -28,7 +29,7 @@ public class StateTest {
                         .withTimestampAssigner((SerializableTimestampAssigner<Event>) (element, recordTimestamp) -> element.timestamp));
 
         stream.keyBy(data->data.user).flatMap(new MyFlatMap()).print();
-
+       env.enableCheckpointing(1000);
         env.execute("");
     }
 
@@ -52,8 +53,9 @@ public class StateTest {
 
         @Override
         public void open(Configuration parameters) throws Exception {
+            ValueStateDescriptor<Event>  valueStateDescriptor= new ValueStateDescriptor<>("my-state", Event.class);
             //根据不同的key 定义不同的状态
-            myValueState = getRuntimeContext().getState(new ValueStateDescriptor<Event>("my-state",Event.class));
+            myValueState = getRuntimeContext().getState(valueStateDescriptor);
             myListState = getRuntimeContext().getListState(new ListStateDescriptor<Event>("my-list-state",Event.class));
             myMapState = getRuntimeContext().getMapState(new MapStateDescriptor<String, Long>("my-map-state",String.class,Long.class));
 
@@ -86,6 +88,13 @@ public class StateTest {
                     return a+b;
                 }
             }, Long.class));
+
+            StateTtlConfig ttlConfig =StateTtlConfig.newBuilder(Time.hours(1))//机器时间
+                    .setUpdateType(StateTtlConfig.UpdateType.OnCreateAndWrite)   //设置状态更新类型
+                    .setStateVisibility(StateTtlConfig.StateVisibility.NeverReturnExpired)//设置状态是否可见
+                    .build();
+
+            valueStateDescriptor.enableTimeToLive(ttlConfig);//设置状态过期时间
         }
 
         @Override
