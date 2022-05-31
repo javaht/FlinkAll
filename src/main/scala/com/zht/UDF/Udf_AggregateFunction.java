@@ -48,8 +48,7 @@ public class Udf_AggregateFunction {
                if(accumulator.count ==0){
                    return null;
                }else{
-                   return accumulator.sum/accumulator.count;
-               }
+                   return accumulator.sum/accumulator.count;}
            }
 
            @Override
