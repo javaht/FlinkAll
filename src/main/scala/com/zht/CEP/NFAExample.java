@@ -38,7 +38,7 @@ public class NFAExample {
 
         //数据按照顺序依次输入，用状态机进行处理 状态跳转
 
-        stream.flatMap(new StateMachineMapper()).print();
+      //  stream.flatMap(new StateMachineMapper()).print();
 
 
         env.execute("");
