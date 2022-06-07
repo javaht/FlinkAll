@@ -1,3 +1,5 @@
+package AllLock;
+
 import java.util.concurrent.locks.ReentrantLock;
 
 public class LockTest {
@@ -23,8 +25,6 @@ class TestLock implements Runnable{
     @Override
     public void run() {
         while(true){
-
-
             try{
                 lock.lock();//枷锁
                 if(ticknumber>0){

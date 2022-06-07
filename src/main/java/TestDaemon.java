@@ -29,7 +29,7 @@ class God implements Runnable{
 
 class You implements Runnable {
     @Override
-    public void run() {
+    public  void run() {
         for (int i = 0; i < 36500; i++) {
             System.out.println("一生都开心的或者");
         }
