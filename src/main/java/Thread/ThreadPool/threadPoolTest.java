@@ -1,4 +1,4 @@
-package ThreadPool;
+package Thread.ThreadPool;
 /*
  * @Author root
  * @Data  2022/6/7 16:35

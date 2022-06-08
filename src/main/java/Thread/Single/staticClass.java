@@ -1,4 +1,4 @@
-package Single;
+package Thread.Single;
 
 /*
 * 静态内部类构造

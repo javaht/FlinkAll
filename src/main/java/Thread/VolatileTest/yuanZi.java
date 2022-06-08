@@ -1,4 +1,4 @@
-package VolatileTest;
+package Thread.VolatileTest;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
