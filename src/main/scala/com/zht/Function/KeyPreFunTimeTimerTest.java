@@ -20,8 +20,6 @@ public class KeyPreFunTimeTimerTest {
         SingleOutputStreamOperator<Event> stream = env.addSource(new ClickSource())
                 .assignTimestampsAndWatermarks(WatermarkStrategy.<Event>forBoundedOutOfOrderness(Duration.ZERO)
                         .withTimestampAssigner((SerializableTimestampAssigner<Event>) (element, recordTimestamp) -> element.timestamp));
-
-
              stream.keyBy(data->data.user)
                              .process(new KeyedProcessFunction<String, Event, String>() {
 
@@ -29,9 +27,10 @@ public class KeyPreFunTimeTimerTest {
                          public void processElement(Event value, KeyedProcessFunction<String, Event, String>.Context ctx, Collector<String> out) throws Exception {
 
                              long currTs = ctx.timerService().currentProcessingTime();
+
                              out.collect(ctx.getCurrentKey()+"数据到达时间："+new Timestamp(currTs));
-                         //注册一个10s后的定时器
-                             ctx.timerService().registerEventTimeTimer(currTs + 10 * 1000);
+                              //注册一个10s后的定时器
+                             ctx.timerService().registerEventTimeTimer(currTs + 10000L);
                          }
 
                          @Override
