@@ -1,4 +1,4 @@
-package AllLock;
+package Thread.AllLock;
 /*
  * @Author root
  * @Data  2022/6/7 13:38

@@ -1,4 +1,4 @@
-package VolatileTest;
+package Thread.VolatileTest;
 /*
  * @Author root
  * @Data  2022/6/7 17:24

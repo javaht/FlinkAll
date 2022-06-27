@@ -1,4 +1,4 @@
-package Collection;
+package Thread.Collection;
 /*
  * @Author root
  * @Data  2022/6/7 15:53

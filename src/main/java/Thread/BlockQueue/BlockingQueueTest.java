@@ -1,4 +1,4 @@
-package BlockQueue;
+package Thread.BlockQueue;
 /*
  * @Author root
  * @Data  2022/6/7 16:25

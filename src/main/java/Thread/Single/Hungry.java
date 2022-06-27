@@ -1,4 +1,4 @@
-package Single;
+package Thread.Single;
 
 public class Hungry {
     private  Hungry(){}

@@ -1,4 +1,4 @@
-package AllLock;
+package Thread.AllLock;
 
 import java.util.concurrent.locks.ReentrantLock;
 

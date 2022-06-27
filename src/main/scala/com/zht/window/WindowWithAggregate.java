@@ -79,7 +79,7 @@ public class WindowWithAggregate {
             long start = context.window().getStart();
             long end = context.window().getEnd();
             long uv =elements.iterator().next();
-            out.collect("窗口"+new Timestamp(start)+"-"+new Timestamp(end)+"uv值为"+uv);
+            out.collect("窗口"+new Timestamp(start)+"-"+new Timestamp(end)+"   "+"uv值为"+uv);
         }
     }
 }
