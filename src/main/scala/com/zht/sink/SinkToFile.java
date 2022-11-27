@@ -51,11 +51,6 @@ public class SinkToFile {
 
         stream.map(data->data.toString()).addSink(build);
 
-
-
-
-
-
         env.execute("SinkToFile");
 
     }
