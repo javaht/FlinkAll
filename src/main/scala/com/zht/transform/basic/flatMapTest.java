@@ -1,4 +1,4 @@
-package com.zht.transform;
+package com.zht.transform.basic;
 
 import org.apache.flink.streaming.api.datastream.DataStreamSource;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
@@ -6,7 +6,7 @@ import org.apache.flink.util.Collector;
 
 
 
-public class TransformTest {
+public class flatMapTest {
     public static void main(String[] args) throws Exception {
 
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();

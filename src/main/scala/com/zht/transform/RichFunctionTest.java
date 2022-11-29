@@ -5,13 +5,17 @@ import org.apache.flink.configuration.Configuration;
 import org.apache.flink.streaming.api.datastream.DataStreamSource;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 
-public class TransformRichFunctionTest {
+//富函数类中包含包含运行环境的上下文,并且拥有一些生命周期的方法
+//典型的生命周期的方法有open close
+// open()    初始化方法
+// close()   生命周期中最后一个调用的方法
+public class RichFunctionTest {
     public static void main(String[] args) throws Exception {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-
+        env.setParallelism(1);
         DataStreamSource<Event> stream = env.fromElements(
-                new Event("Bob", "./cart", 2000L),
-                new Event("Alice", "./prod?id=100", 3000L)
+                new Event("Bob", "./cart", 1000L),
+                new Event("Alice", "./prod?id=100", 2000L)
         );
 
         stream.map(new MyRitchMapper()).print();
@@ -22,7 +26,7 @@ public class TransformRichFunctionTest {
     public static class MyRitchMapper extends RichMapFunction<Event, Integer> {
         @Override
         public void open(Configuration parameters) throws Exception {
-            super.open(parameters);
+            System.out.println("方法初始化");
         }
 
         @Override
@@ -32,7 +36,7 @@ public class TransformRichFunctionTest {
 
         @Override
         public void close() throws Exception {
-            super.close();
+            System.out.println("方法结束啦");
         }
     }
 }
