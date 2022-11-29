@@ -28,6 +28,8 @@ public class PartitionTest {
         //2.轮询分区
        //stream.rebalance().print().setParallelism(4);
 
+
+        //3.重缩放分区
 //        DataStreamSource<Integer> ds = env.addSource(new RichParallelSourceFunction<Integer>() {
 //            @Override
 //            public void run(SourceContext<Integer> ctx) throws Exception {

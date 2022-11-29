@@ -12,8 +12,6 @@ public class SinkToMysql {
         public static void main(String[] args) throws Exception {
             StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
             env.setParallelism(1);
-
-
             DataStreamSource<Event> stream = env.fromElements(
                     new Event("Mary", "./home", 1000L),
                     new Event("Bob", "./cart", 2000L),
