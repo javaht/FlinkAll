@@ -2,6 +2,7 @@ package com.zht.window;
 
 import com.zht.Watermark.ClickSource;
 import com.zht.transform.Event;
+import com.zht.window.entity.UrlViewCount;
 import org.apache.flink.api.common.eventtime.SerializableTimestampAssigner;
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
 import org.apache.flink.api.common.functions.AggregateFunction;
@@ -13,7 +14,6 @@ import org.apache.flink.streaming.api.windowing.time.Time;
 import org.apache.flink.streaming.api.windowing.windows.TimeWindow;
 import org.apache.flink.util.Collector;
 
-import java.sql.Timestamp;
 import java.time.Duration;
 
 public class UrlCountView {
@@ -64,7 +64,7 @@ public static  class UrlViewCountAgg implements AggregateFunction<Event,Long,Lon
     }
 }
 
-public static class UrlViewCountResult extends ProcessWindowFunction<Long,UrlViewCount,String, TimeWindow>{
+public static class UrlViewCountResult extends ProcessWindowFunction<Long, UrlViewCount,String, TimeWindow>{
 
 
     @Override

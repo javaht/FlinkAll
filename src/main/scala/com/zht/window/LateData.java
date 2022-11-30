@@ -1,7 +1,7 @@
 package com.zht.window;
 
-import com.zht.Watermark.ClickSource;
 import com.zht.transform.Event;
+import com.zht.window.entity.UrlViewCount;
 import org.apache.flink.api.common.eventtime.SerializableTimestampAssigner;
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
 import org.apache.flink.api.common.functions.AggregateFunction;
@@ -35,9 +35,9 @@ public class LateData {
 
 
 
-                /*
-                 * 乱序流的watermark流生成
-                 * */
+        /*
+         * 乱序流的watermark流生成
+         * */
         SingleOutputStreamOperator<Event> assign = stream.assignTimestampsAndWatermarks(WatermarkStrategy.<Event>forBoundedOutOfOrderness(Duration.ofSeconds(2))
                 .withTimestampAssigner((SerializableTimestampAssigner<Event>) (event, recordtimestamp) -> event.timestamp));
 

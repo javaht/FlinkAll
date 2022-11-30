@@ -1,4 +1,4 @@
-package com.zht.window;
+package com.zht.window.entity;
 
 import lombok.Data;
 import lombok.Generated;

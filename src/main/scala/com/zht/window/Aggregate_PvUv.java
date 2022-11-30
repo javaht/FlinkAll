@@ -16,7 +16,7 @@ import java.sql.Timestamp;
 import java.time.Duration;
 import java.util.HashSet;
 
-public class WindowAggregate_PvUv {
+public class Aggregate_PvUv {
     public static void main(String[] args) throws Exception {
 
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
@@ -53,7 +53,6 @@ public class WindowAggregate_PvUv {
 
          //每来一条数据PV个数加1  将User放入hashset中
          accumulator.f1.add(event.user);
-
          return Tuple2.of(accumulator.f0+1,accumulator.f1);
      }
 

@@ -13,7 +13,7 @@ import org.apache.flink.streaming.api.windowing.time.Time;
 
 import java.time.Duration;
 
-public class WindowReduceTest {
+public class ReduceTest {
     public static void main(String[] args) throws Exception {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         env.setParallelism(1);

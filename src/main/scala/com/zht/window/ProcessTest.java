@@ -6,6 +6,7 @@ import org.apache.flink.api.common.eventtime.WatermarkStrategy;
 import org.apache.flink.api.common.functions.AggregateFunction;
 import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
+import org.apache.flink.streaming.api.datastream.WindowedStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.api.functions.windowing.ProcessWindowFunction;
 import org.apache.flink.streaming.api.windowing.assigners.SlidingEventTimeWindows;
@@ -18,23 +19,34 @@ import java.sql.Timestamp;
 import java.time.Duration;
 import java.util.HashSet;
 
-public class WindowProcessTest {
+public class ProcessTest {
     public static void main(String[] args) throws Exception {
 
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         env.setParallelism(1);
         env.getConfig().setAutoWatermarkInterval(100);//100毫秒触发一次   周期性的生成watermark
         SingleOutputStreamOperator<Event> stream = env.addSource(new com.zht.Watermark.ClickSource());
-        /*
-         * 乱序流的watermark流生成
-         * */
-        stream.print();
-        stream.assignTimestampsAndWatermarks(WatermarkStrategy.<Event>forBoundedOutOfOrderness(Duration.ofSeconds(2))
-                        .withTimestampAssigner((SerializableTimestampAssigner<Event>) (event, recordtimestamp) -> event.timestamp))
 
-                //使用processlistWindowFunciton
-                .keyBy(data -> true).window(TumblingEventTimeWindows.of(Time.seconds(10)))
-                .process(new UvCountByWindow()).print();
+
+
+        SingleOutputStreamOperator<Event> eventSingleOutputStreamOperator = stream.assignTimestampsAndWatermarks(WatermarkStrategy.<Event>forBoundedOutOfOrderness(Duration.ofSeconds(2))
+                .withTimestampAssigner(new SerializableTimestampAssigner<Event>() {
+                    @Override
+                    public long extractTimestamp(Event event, long l) {
+                        return event.timestamp;
+                    }
+                })
+        );
+        WindowedStream<Event, Boolean, TimeWindow> window = eventSingleOutputStreamOperator.keyBy(data -> true).window(TumblingEventTimeWindows.of(Time.seconds(10)));
+        window.process(new UvCountByWindow()).print();
+
+
+//        stream.assignTimestampsAndWatermarks(WatermarkStrategy.<Event>forBoundedOutOfOrderness(Duration.ofSeconds(2))
+//                        .withTimestampAssigner((SerializableTimestampAssigner<Event>) (event, recordtimestamp) -> event.timestamp))
+//                //使用processlistWindowFunciton
+//                .keyBy(data -> true).window(TumblingEventTimeWindows.of(Time.seconds(10)))
+//                .process(new UvCountByWindow()).print();
+
         env.execute();
     }
 

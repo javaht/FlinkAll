@@ -14,7 +14,7 @@ import org.apache.flink.streaming.api.windowing.time.Time;
 import java.sql.Timestamp;
 import java.time.Duration;
 
-public class WindowAggregateTest {
+public class AggregateTest {
     public static void main(String[] args) throws Exception {
 
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();

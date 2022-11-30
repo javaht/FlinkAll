@@ -17,7 +17,7 @@ import java.sql.Timestamp;
 import java.time.Duration;
 import java.util.HashSet;
 
-public class WindowWithAggregate {
+public class WithAggregate {
     public static void main(String[] args) throws Exception {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         env.setParallelism(1);

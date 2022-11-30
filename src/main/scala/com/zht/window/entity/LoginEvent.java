@@ -1,4 +1,4 @@
-package com.zht.window;
+package com.zht.window.entity;
 /*
  * @Author root
  * @Data  2022/6/1 16:16
