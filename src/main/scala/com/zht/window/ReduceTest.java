@@ -1,6 +1,7 @@
 package com.zht.window;
 
-import com.zht.transform.Event;
+import com.zht.base.Watermark.ClickSource;
+import com.zht.base.transform.Event;
 import org.apache.flink.api.common.eventtime.SerializableTimestampAssigner;
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
 import org.apache.flink.api.common.functions.MapFunction;
@@ -20,7 +21,7 @@ public class ReduceTest {
 
 
         // 从自定义数据源读取数据，并提取时间戳、生成水位线
-        SingleOutputStreamOperator<Event> stream = env.addSource(new com.zht.Watermark.ClickSource())
+        SingleOutputStreamOperator<Event> stream = env.addSource(new ClickSource())
                 .assignTimestampsAndWatermarks(WatermarkStrategy.<Event>forBoundedOutOfOrderness(Duration.ZERO)
                         .withTimestampAssigner(new SerializableTimestampAssigner<Event>() {
                             @Override
@@ -28,18 +29,28 @@ public class ReduceTest {
                                 return element.timestamp;
                             }
                         }));
-        stream.map((MapFunction<Event, Tuple2<String, Long>>) value -> {return Tuple2.of(value.user, 1L);})
-                .keyBy(r -> r.f0)
+
+
+        SingleOutputStreamOperator<Tuple2<String, Long>> map = stream.map(new MapFunction<Event, Tuple2<String, Long>>() {
+            @Override
+            public Tuple2<String, Long> map(Event event) throws Exception {
+                return Tuple2.of(event.user, 1L);
+            }
+        });
+
+//        SingleOutputStreamOperator<Tuple2<String, Long>> map = stream.map((MapFunction<Event, Tuple2<String, Long>>) value -> Tuple2.of(value.user, 1L));
+
+
+          map.keyBy(r -> r.f0)
                 // 设置滚动事件时间窗口
                 .window(TumblingEventTimeWindows.of(Time.seconds(5)))
                 .reduce(new ReduceFunction<Tuple2<String, Long>>() {
                     @Override
                     public Tuple2<String, Long> reduce(Tuple2<String, Long> value1, Tuple2<String, Long> value2) throws Exception {
-                        // 定义累加规则，窗口闭合时，向下游发送累加结果
+                        //定义累加规则，窗口闭合时，向下游发送累加结果
                         return Tuple2.of(value1.f0, value1.f1 + value2.f1);
                     }
-                })
-                .print();
+                }).print();
 
         env.execute();
     }

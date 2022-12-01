@@ -1,6 +1,6 @@
 package com.zht.window;
 
-import com.zht.transform.Event;
+import com.zht.base.transform.Event;
 import com.zht.window.entity.UrlViewCount;
 import org.apache.flink.api.common.eventtime.SerializableTimestampAssigner;
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
@@ -31,8 +31,6 @@ public class LateData {
                     return new Event(split[0].trim(), split[1].trim(), Long.parseLong(split[2].trim()));
                 }
         );
-
-
 
 
         /*

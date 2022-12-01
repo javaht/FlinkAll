@@ -6,7 +6,7 @@ package com.zht.KeyState;
  * */
 
 
-import com.zht.transform.Event;
+import com.zht.base.transform.Event;
 import org.apache.flink.api.common.eventtime.SerializableTimestampAssigner;
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
 import org.apache.flink.api.common.state.ValueState;
@@ -24,7 +24,7 @@ public class PeriodicPv {
 
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         env.setParallelism(1);
-        SingleOutputStreamOperator<Event> stream = env.addSource(new com.zht.Watermark.ClickSource())
+        SingleOutputStreamOperator<Event> stream = env.addSource(new com.zht.base.Watermark.ClickSource())
                 .assignTimestampsAndWatermarks(WatermarkStrategy.<Event>forBoundedOutOfOrderness(Duration.ZERO)
                         .withTimestampAssigner((SerializableTimestampAssigner<Event>) (element, recordTimestamp) -> element.timestamp));
 

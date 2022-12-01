@@ -1,8 +1,8 @@
 package com.zht;
 
-import com.zht.Watermark.ClickSource;
-import com.zht.transform.Event;
-import com.zht.window.UrlCountView;
+import com.zht.base.Watermark.ClickSource;
+import com.zht.base.transform.Event;
+import com.zht.window.aggregateUse;
 import com.zht.window.entity.UrlViewCount;
 import org.apache.flink.api.common.eventtime.SerializableTimestampAssigner;
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
@@ -33,7 +33,7 @@ public class TopN_ProcessAllWindowFunction2 {
 
         SingleOutputStreamOperator<UrlViewCount> urlCountStream = stream.keyBy(data -> data.url)
                 .window(SlidingEventTimeWindows.of(Time.seconds(10), Time.seconds(5)))
-                .aggregate(new UrlCountView.UrlViewCountAgg(), new UrlCountView.UrlViewCountResult());
+                .aggregate(new aggregateUse.UrlViewCountAgg(), new aggregateUse.UrlViewCountResult());
 
         urlCountStream.print("Url count");
        urlCountStream.keyBy(data -> data.windowEnd).process(new TopNProcessResult(2)).print();

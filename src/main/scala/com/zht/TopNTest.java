@@ -1,7 +1,7 @@
 package com.zht;
 
-import com.zht.Watermark.ClickSource;
-import com.zht.transform.Event;
+import com.zht.base.Watermark.ClickSource;
+import com.zht.base.transform.Event;
 import com.zht.window.entity.UrlViewCount;
 import org.apache.flink.api.common.eventtime.SerializableTimestampAssigner;
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;

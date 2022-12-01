@@ -1,18 +1,15 @@
 package com.zht.SQL;
 
-import com.zht.Watermark.ClickSource;
-import com.zht.transform.Event;
+import com.zht.base.Watermark.ClickSource;
+import com.zht.base.transform.Event;
 import org.apache.flink.api.common.eventtime.SerializableTimestampAssigner;
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
-import org.apache.flink.streaming.api.CheckpointingMode;
 import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
-import org.apache.flink.streaming.api.environment.CheckpointConfig;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.table.api.Table;
 import org.apache.flink.table.api.bridge.java.StreamTableEnvironment;
 
 import java.time.Duration;
-import java.util.concurrent.TimeUnit;
 
 import static org.apache.flink.table.api.Expressions.$;
 

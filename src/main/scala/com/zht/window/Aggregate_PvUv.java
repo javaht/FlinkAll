@@ -1,7 +1,7 @@
 package com.zht.window;
 
-import com.zht.Watermark.ClickSource;
-import com.zht.transform.Event;
+import com.zht.base.Watermark.ClickSource;
+import com.zht.base.transform.Event;
 import org.apache.flink.api.common.eventtime.SerializableTimestampAssigner;
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
 import org.apache.flink.api.common.functions.AggregateFunction;
@@ -9,10 +9,8 @@ import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.api.windowing.assigners.SlidingEventTimeWindows;
-import org.apache.flink.streaming.api.windowing.assigners.TumblingEventTimeWindows;
 import org.apache.flink.streaming.api.windowing.time.Time;
 
-import java.sql.Timestamp;
 import java.time.Duration;
 import java.util.HashSet;
 
@@ -29,14 +27,10 @@ public class Aggregate_PvUv {
         stream.print();
         stream.assignTimestampsAndWatermarks(WatermarkStrategy.<Event>forBoundedOutOfOrderness(Duration.ofSeconds(2))
                 .withTimestampAssigner((SerializableTimestampAssigner<Event>) (event, recordtimestamp) -> event.timestamp))
-        /*
-         * 滚动处理时间窗口
-         * */
+
         .keyBy(data-> true).window(SlidingEventTimeWindows.of(Time.seconds(10),Time.seconds(2)))//滚动事件时间窗口
-        /*
-         * 窗口函数的聚合函数
-         * */
-                .aggregate(new AvgPv()).print();
+                .aggregate(new AvgPv())  //窗口函数的聚合函数
+                .print();
         env.execute("PVUV");
     }
 

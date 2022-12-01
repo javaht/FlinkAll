@@ -1,7 +1,7 @@
 package com.zht.window;
 
-import com.zht.Watermark.ClickSource;
-import com.zht.transform.Event;
+import com.zht.base.Watermark.ClickSource;
+import com.zht.base.transform.Event;
 import org.apache.flink.api.common.eventtime.SerializableTimestampAssigner;
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
 import org.apache.flink.api.common.functions.AggregateFunction;
@@ -49,7 +49,7 @@ public class AggregateTest {
 
                     @Override
                     //将输入的元素添加到累加器中。这就是基于聚合状态，对新来的数据进行进一步聚合的过程。
-                    // 方法传入两个参数：当前新到的数据 value，和当前的累加器 accumulator；返回一个新的累加器值，也就是对聚合状态进行更新。每条数据到来之后都会调用这个方法。
+                    // 方法传入两个参数：当前新到的数据 value，和当前的累加器 accumulator;返回一个新的累加器值，也就是对聚合状态进行更新。每条数据到来之后都会调用这个方法。
                     public Tuple2<Long, Integer> add(Event value, Tuple2<Long, Integer> accumulator) {
                         return Tuple2.of(accumulator.f0+1,accumulator.f1+1);
                     }

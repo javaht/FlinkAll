@@ -1,6 +1,6 @@
 package com.zht.WindowJoin;
 
-import com.zht.transform.Event;
+import com.zht.base.transform.Event;
 import org.apache.flink.api.common.eventtime.SerializableTimestampAssigner;
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
 import org.apache.flink.api.java.tuple.Tuple2;
