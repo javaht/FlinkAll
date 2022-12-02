@@ -1,4 +1,4 @@
-package com.zht.ProcessFunction.UnionStream;
+package com.zht.ProcessFunction.CoProcessFunction;
 
 import org.apache.flink.api.common.eventtime.SerializableTimestampAssigner;
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;

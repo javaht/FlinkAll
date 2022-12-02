@@ -1,4 +1,4 @@
-package com.zht.ProcessFunction.UnionStream;
+package com.zht.ProcessFunction.CoProcessFunction;
 
 import com.zht.base.transform.Event;
 import org.apache.flink.api.common.eventtime.SerializableTimestampAssigner;
@@ -38,10 +38,8 @@ public class UnionStreamTest {
 
         stream1.union(stream2).process(
                 new ProcessFunction<Event, String>() {
-
                     @Override
                     public void processElement(Event value, ProcessFunction<Event, String>.Context ctx, Collector<String> out) throws Exception {
-
                         out.collect("水位线是："+ctx.timerService().currentWatermark());
                     }
                 }

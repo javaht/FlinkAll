@@ -1,4 +1,4 @@
-package com.zht;
+package com.zht.window;
 
 import com.zht.base.Watermark.ClickSource;
 import com.zht.base.transform.Event;
@@ -16,7 +16,7 @@ import org.apache.flink.util.Collector;
 
 import java.time.Duration;
 
-public class TopNTest {
+public class aggregateTopNTest {
     public static void main(String[] args) throws Exception {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         env.setParallelism(1);

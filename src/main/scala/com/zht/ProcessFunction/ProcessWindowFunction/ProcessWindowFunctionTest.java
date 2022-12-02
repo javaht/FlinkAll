@@ -1,4 +1,4 @@
-package com.zht.window;
+package com.zht.ProcessFunction.ProcessWindowFunction;
 
 import com.zht.base.transform.Event;
 import org.apache.flink.api.common.eventtime.SerializableTimestampAssigner;
@@ -17,7 +17,7 @@ import java.time.Duration;
 import java.util.HashSet;
 
 //全窗口函数
-public class ProcessTest {
+public class ProcessWindowFunctionTest {
     public static void main(String[] args) throws Exception {
 
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
@@ -35,6 +35,7 @@ public class ProcessTest {
                     }
                 })
         );
+
         WindowedStream<Event, Boolean, TimeWindow> winStream = eventSingleOutputStreamOperator.keyBy(data -> true).window(TumblingEventTimeWindows.of(Time.seconds(5)));
         winStream.process(new UvCountByWindow()).print();
         env.execute();

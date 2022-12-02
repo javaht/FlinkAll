@@ -1,4 +1,4 @@
-package com.zht.ProcessFunction.Function;
+package com.zht.ProcessFunction.KeyedProcessFunction;
 
 import com.zht.base.Watermark.ClickSource;
 import com.zht.base.transform.Event;
@@ -25,18 +25,18 @@ public class ProcessFunctionTest {
                     @Override
                     public void processElement(Event value, ProcessFunction<Event, String>.Context ctx, Collector<String> out) throws Exception {
                         if(("Mary").equals(value.user)){
-                            out.collect(value.user+"clicks"+value.url);
+                            out.collect(value.user+"------clicks---------"+value.url);
                         }else if(value.user.equals("Bob")){
                             out.collect(value.user);
                         }
-                        out.collect(value.toString());
+                       // out.collect(value.toString());
 
-                        System.out.println("timestamp: "+ctx.timestamp());
-                        System.out.println("当前的watermark："+ctx.timerService().currentWatermark());
-                        System.out.println("getRuntimeContext().getIndexOfThisSubtask()   "+getRuntimeContext().getIndexOfThisSubtask());
+                        System.out.println("timestamp------->"+ctx.timestamp());
+                        System.out.println("当前的watermark=========>"+ctx.timerService().currentWatermark());
+                        System.out.println("getRuntimeContext().getIndexOfThisSubtask()-=-=-=-=-=-=-=-=-=-=->"+getRuntimeContext().getIndexOfThisSubtask());
                     }
 
-                }).print();
+                }).print();  //这个print输出的是out中的元素
 
 
         env.execute();

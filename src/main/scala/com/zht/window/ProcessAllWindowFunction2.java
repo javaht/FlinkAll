@@ -1,4 +1,4 @@
-package com.zht;
+package com.zht.window;
 
 import com.zht.base.Watermark.ClickSource;
 import com.zht.base.transform.Event;
@@ -20,7 +20,7 @@ import java.sql.Timestamp;
 import java.time.Duration;
 import java.util.ArrayList;
 
-public class TopN_ProcessAllWindowFunction2 {
+public class ProcessAllWindowFunction2 {
 
     public static void main(String[] args) throws Exception {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
