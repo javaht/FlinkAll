@@ -20,7 +20,7 @@ import java.sql.Timestamp;
 import java.time.Duration;
 import java.util.ArrayList;
 
-public class ProcessAllWindowFunction2 {
+public class ProcessWindowFunction2 {
 
     public static void main(String[] args) throws Exception {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();

@@ -1,10 +1,9 @@
-package com.zht.KeyState;
+package com.zht.State;
 /*
  * @Author root
  * @Data  2022/5/26 11:14
  * @Description
  * */
-
 
 import com.zht.base.transform.Event;
 import org.apache.flink.api.common.eventtime.SerializableTimestampAssigner;
@@ -30,8 +29,7 @@ public class PeriodicPv {
 
         stream.print("input");
         //统计每个用户的PV
-        stream.keyBy(data->data.user)
-                        .process(new KeyedProcessFunction<String, Event, String>() {
+        stream.keyBy(data->data.user).process(new KeyedProcessFunction<String, Event, String>() {
                             //定义状态 保存当前pv统计值
                             ValueState<Long> countState;
                             ValueState<Long> timerState;

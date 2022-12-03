@@ -1,4 +1,4 @@
-package com.zht.KeyState;
+package com.zht.State;
 
 import com.zht.base.Watermark.ClickSource;
 import com.zht.base.transform.Event;
@@ -42,12 +42,10 @@ public class StateTest {
         MapState<String, Long> myMapState;
         ReducingState<Event> myReducingState;
         AggregatingState<Event,String> myAggregatingState;
-
         /*
         * 增加一个本地变量进行对比
         * */
         Long count = 0L;
-
 
         @Override
         public void open(Configuration parameters) throws Exception {
@@ -56,14 +54,12 @@ public class StateTest {
             myValueState = getRuntimeContext().getState(valueStateDescriptor);
             myListState = getRuntimeContext().getListState(new ListStateDescriptor<Event>("my-list-state",Event.class));
             myMapState = getRuntimeContext().getMapState(new MapStateDescriptor<String, Long>("my-map-state",String.class,Long.class));
-
             myReducingState = getRuntimeContext().getReducingState(new ReducingStateDescriptor<Event>("my-reducing-state", new ReduceFunction<Event>() {
                 @Override
                 public Event reduce(Event value1, Event value2) throws Exception {
                     return new Event(value1.user, value1.url, value2.timestamp);
                 }
             }, Event.class));
-
 
             myAggregatingState = getRuntimeContext().getAggregatingState(new AggregatingStateDescriptor<Event, Long, String>("my-aggregating-state", new AggregateFunction<Event, Long, String>() {
                 @Override

@@ -1,4 +1,4 @@
-package com.zht.WindowJoin;
+package com.zht.twoStreamJoin;
 
 import org.apache.flink.api.common.eventtime.SerializableTimestampAssigner;
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;

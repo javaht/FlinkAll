@@ -21,9 +21,8 @@ public class Aggregate_PvUv {
         env.setParallelism(1);
         env.getConfig().setAutoWatermarkInterval(100);//100毫秒触发一次   周期性的生成watermark
         SingleOutputStreamOperator<Event> stream = env.addSource(new ClickSource());
-        /*
-         * 乱序流的watermark流生成
-         * */
+
+        //乱序流的watermark流生成
         stream.print();
         stream.assignTimestampsAndWatermarks(WatermarkStrategy.<Event>forBoundedOutOfOrderness(Duration.ofSeconds(2))
                 .withTimestampAssigner((SerializableTimestampAssigner<Event>) (event, recordtimestamp) -> event.timestamp))
@@ -33,7 +32,6 @@ public class Aggregate_PvUv {
                 .print();
         env.execute("PVUV");
     }
-
 
  public static class AvgPv implements AggregateFunction<Event,Tuple2<Long, HashSet<String>>,Double>{
 
@@ -49,7 +47,6 @@ public class Aggregate_PvUv {
          accumulator.f1.add(event.user);
          return Tuple2.of(accumulator.f0+1,accumulator.f1);
      }
-
      @Override
      public Double getResult(Tuple2<Long, HashSet<String>> accumulator) {
 

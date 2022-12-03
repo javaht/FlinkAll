@@ -1,8 +1,17 @@
 package com.zht.SQL;
 
+import com.zht.base.Watermark.ClickSource;
+import com.zht.base.transform.Event;
+import org.apache.flink.api.common.eventtime.SerializableTimestampAssigner;
+import org.apache.flink.api.common.eventtime.WatermarkStrategy;
+import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.table.api.Table;
 import org.apache.flink.table.api.bridge.java.StreamTableEnvironment;
+
+import java.time.Duration;
+
+import static org.apache.flink.table.api.Expressions.$;
 
 public class TimeAndWindowTest {
     public static void main(String[] args) throws Exception {
@@ -22,12 +31,12 @@ public class TimeAndWindowTest {
         tableEnv.executeSql(createDDL);
 
         // 2. 在流转换成Table时定义时间属性
-  /*      SingleOutputStreamOperator<Event> clickStream = env.addSource(new ClickSource())
+        SingleOutputStreamOperator<Event> clickStream = env.addSource(new ClickSource())
                 .assignTimestampsAndWatermarks(WatermarkStrategy.<Event>forBoundedOutOfOrderness(Duration.ZERO)
                         .withTimestampAssigner((SerializableTimestampAssigner<Event>) (event, l) -> event.timestamp));
 
         Table clickTable = tableEnv.fromDataStream(clickStream, $("user"), $("url"), $("timestamp").as("ts"),
-                $("et").rowtime());*/
+                $("et").rowtime());
 
 //        clickTable.printSchema();
 
@@ -37,7 +46,7 @@ public class TimeAndWindowTest {
         Table aggTable = tableEnv.sqlQuery("SELECT user_name, COUNT(1) FROM clickTable GROUP BY user_name");
 
         // 2. 分组窗口聚合
-/*        Table groupWindowResultTable = tableEnv.sqlQuery("SELECT " +
+        Table groupWindowResultTable = tableEnv.sqlQuery("SELECT " +
                 "user_name, " +
                 "COUNT(1) AS cnt, " +
                 "TUMBLE_END(et, INTERVAL '10' SECOND) as endT " +
@@ -45,7 +54,7 @@ public class TimeAndWindowTest {
                 "GROUP BY " +                     // 使用窗口和用户名进行分组
                 "  user_name, " +
                 "  TUMBLE(et, INTERVAL '10' SECOND)" // 定义1小时滚动窗口
-        );*/
+        );
 
         // 3. 窗口聚合
         // 3.1 滚动窗口
@@ -77,10 +86,10 @@ public class TimeAndWindowTest {
         // 结果表转换成流打印输出
 //        tableEnv.toChangelogStream(aggTable).print("agg: ");
 //        tableEnv.toDataStream(groupWindowResultTable).print("group window: ");
-  //     tableEnv.toDataStream(tumbleWindowResultTable).print("tumble window: ");
+//        tableEnv.toDataStream(tumbleWindowResultTable).print("tumble window: ");
 //        tableEnv.toDataStream(hopWindowResultTable).print("hop window: ");
 //        tableEnv.toDataStream(cumulateWindowResultTable).print("cumulate window: ");
-          tableEnv.toDataStream(overWindowResultTable).print("over window: ");
+//        tableEnv.toDataStream(overWindowResultTable).print("over window: ");
 
         env.execute();
     }

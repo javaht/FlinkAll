@@ -61,8 +61,7 @@ public class OrderTimeOut {
 
 
          //定义一个测输出流的标签
-        OutputTag<String> timeputTag = new OutputTag<String>("timeout") {
-        };
+        OutputTag<String> timeputTag = new OutputTag<String>("timeout") {};
 
         patternStream.process(new OrderPatMatch()).print("payed:  ");
         patternStream.process(new OrderPatMatch()).getSideOutput(timeputTag).print("timeout:  ");
