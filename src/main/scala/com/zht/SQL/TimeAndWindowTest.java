@@ -35,8 +35,7 @@ public class TimeAndWindowTest {
                 .assignTimestampsAndWatermarks(WatermarkStrategy.<Event>forBoundedOutOfOrderness(Duration.ZERO)
                         .withTimestampAssigner((SerializableTimestampAssigner<Event>) (event, l) -> event.timestamp));
 
-        Table clickTable = tableEnv.fromDataStream(clickStream, $("user"), $("url"), $("timestamp").as("ts"),
-                $("et").rowtime());
+        Table clickTable = tableEnv.fromDataStream(clickStream, $("user"), $("url"), $("timestamp").as("ts"), $("et").rowtime());
 
 //        clickTable.printSchema();
 
