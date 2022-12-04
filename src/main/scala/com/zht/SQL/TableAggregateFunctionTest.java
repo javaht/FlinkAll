@@ -33,7 +33,7 @@ public class TableAggregateFunctionTest {
                 " GROUP BY user,window_start,window_end";
         Table aggTable = tableEnv.sqlQuery(winAggQuery);
         Table resultTable = aggTable.groupBy($("window_end")).flatAggregate(call("Top2", $("cnt")).as("value", "rank"))
-                .select($("window_end"), $("value"), $("rank"));
+                                    .select($("window_end"), $("value"), $("rank"));
 
           tableEnv.toChangelogStream(resultTable).print();
 
