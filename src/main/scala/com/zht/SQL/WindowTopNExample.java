@@ -1,8 +1,14 @@
 package com.zht.SQL;
 
+import com.zht.base.transform.Event;
+import org.apache.flink.api.common.eventtime.SerializableTimestampAssigner;
+import org.apache.flink.api.common.eventtime.WatermarkStrategy;
+import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.table.api.Table;
 import org.apache.flink.table.api.bridge.java.StreamTableEnvironment;
+
+import static org.apache.flink.table.api.Expressions.$;
 
 public class WindowTopNExample {
     public static void main(String[] args) throws Exception {
@@ -12,7 +18,7 @@ public class WindowTopNExample {
         StreamTableEnvironment tableEnv = StreamTableEnvironment.create(env);
 
 // 读取数据源，并分配时间戳、生成水位线
-/*        SingleOutputStreamOperator<Event> eventStream = env.fromElements(
+        SingleOutputStreamOperator<Event> eventStream = env.fromElements(
                         new Event("Alice", "./home", 1000L),
                         new Event("Bob", "./cart", 1000L),
                         new Event("Alice", "./prod?id=1",  25 * 60 * 1000L),
@@ -29,7 +35,7 @@ public class WindowTopNExample {
         // 将数据流转换成表，并指定时间属性
         Table eventTable = tableEnv.fromDataStream(eventStream, $("user"), $("url"),
                 $("timestamp").rowtime().as("ts") // 将timestamp指定为事件时间，并命名为ts
-                 );*/
+                 );
 
 
 
@@ -62,9 +68,7 @@ public class WindowTopNExample {
 
         // 执行SQL得到结果表
         Table result = tableEnv.sqlQuery(topNQuery);
-
         tableEnv.toDataStream(result).print();
-
         env.execute();
     }
 }

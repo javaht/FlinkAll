@@ -41,15 +41,12 @@ public class TableAggregateFunctionTest {
     }
 
     //单独定义累加器类型  包含当前最大和第二大的数据
-
     public static class Top2Accumulator{
         public Long max;
         public Long secondMax;
     }
 
      public static class Top2 extends TableAggregateFunction<Tuple2<Long,Integer>,Top2Accumulator> {
-
-
          @Override
          public Top2Accumulator createAccumulator() {
 
@@ -76,9 +73,6 @@ public class TableAggregateFunctionTest {
              if(accumulator.secondMax!=Long.MIN_VALUE){
                  out.collect(Tuple2.of(accumulator.secondMax,1));
              }
-
          }
-
      }
-
 }

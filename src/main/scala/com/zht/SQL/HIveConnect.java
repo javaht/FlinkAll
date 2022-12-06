@@ -24,7 +24,5 @@ public class HIveConnect {
 
 // 使用HiveCatalog作为当前会话的catalog
         tableEnv.useCatalog("myhive");
-
-
     }
 }

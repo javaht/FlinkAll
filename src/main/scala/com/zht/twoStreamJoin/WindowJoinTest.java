@@ -1,6 +1,5 @@
 package com.zht.twoStreamJoin;
 
-import com.sun.xml.internal.ws.util.xml.CDATA;
 import org.apache.flink.api.common.eventtime.SerializableTimestampAssigner;
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
 
