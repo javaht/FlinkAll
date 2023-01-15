@@ -59,11 +59,11 @@ public class BufferingSinkExample {
             bufferElements.add(value);//缓存到列表中
             //如果列表中的数据大于阈值 就输出
             if(bufferElements.size()>=threshold){
-                            for(Event event:bufferElements){
-                                System.out.println(event);
-                            }
-                             System.out.println("输出完毕");
-                            bufferElements.clear();
+                for(Event event:bufferElements){
+                    System.out.println(event);
+                }
+                   System.out.println("输出完毕");
+                    bufferElements.clear();
                         }
 
         }
