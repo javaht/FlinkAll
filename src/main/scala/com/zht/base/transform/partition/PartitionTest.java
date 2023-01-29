@@ -73,11 +73,6 @@ public class PartitionTest {
 //                    }
 //                })
 //                        .print().setParallelism(4);
-
-
-
-
-
         env.execute("TransFormPartitionTest");
 
     }

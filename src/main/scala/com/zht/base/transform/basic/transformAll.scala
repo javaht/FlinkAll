@@ -1,8 +1,10 @@
 package com.zht.base.transform.basic
 
 import com.zht.base.transform.Event
+import org.apache.flink.api.common.functions.{FlatMapFunction, MapFunction}
 import org.apache.flink.streaming.api.datastream.DataStreamSource
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment
+import org.apache.flink.util.Collector
 //基本算子
 object transformAll {
   def main(args: Array[String]): Unit = {
@@ -20,20 +22,29 @@ object transformAll {
     //stream.map(data=>data.getUser).print()
 
     //Map算子的使用
-    //       stream.map(new MapFunction[Event, String](){
-    //         override def map(event: Event): String = {
-    //           event.getUrl
-    //          }
-    //       }).print()
+    //  stream.map(new MapFunction[Event, String](){
+    //    override def map(event: Event): String = {
+    //      event.getUrl
+    //     }
+    //  }).print()
 
     //FlatMap算子的使用
-    //    stream.flatMap(new FlatMapFunction[Event, String]() {
-    //      @throws[Exception]
-    //      override def flatMap(event: Event, collector: Collector[String]): Unit = {
-    //        collector.collect(event.getUser)
-    //        collector.collect(event.getUrl)
-    //      }
-    //    }).print
+    //   stream.flatMap(new FlatMapFunction[Event, String]() {
+    //     @throws[Exception]
+    //     override def flatMap(event: Event, collector: Collector[String]): Unit = {
+    //       collector.collect(event.getUser)
+    //       collector.collect(event.getUrl)
+    //     }
+    //   }).print
+
+    //java写法
+    //    ds.flatMap((String line, Collector<String> out) -> {
+    //      String[] fields = line.split(",");
+    //      out.collect(fields[0]);
+    //      out.collect(fields[1]);
+    //      out.collect(fields[2]);
+    //    }).returns(String.class).print();
+
 
     //FlatMap算子的使用
     //    stream.flatMap((event: Event,collector: Collector[String])=>{
@@ -51,13 +62,7 @@ object transformAll {
     //     event.getUser.equals("Mary")
     //
     //      }
-    //    }).print()
-
-
-
-
-
-
+    //    }).returns(classOf[String]).print();
 
 
 
