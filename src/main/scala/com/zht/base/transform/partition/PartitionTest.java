@@ -3,6 +3,7 @@ package com.zht.base.transform.partition;
 import com.zht.base.transform.Event;
 import org.apache.flink.streaming.api.datastream.DataStreamSource;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
+import org.apache.flink.streaming.api.functions.source.RichParallelSourceFunction;
 
 public class PartitionTest {
     public static void main(String[] args) throws Exception {
@@ -27,21 +28,21 @@ public class PartitionTest {
 
 
         //3.重缩放分区
-//        DataStreamSource<Integer> ds = env.addSource(new RichParallelSourceFunction<Integer>() {
-//            @Override
-//            public void run(SourceContext<Integer> ctx) throws Exception {
-//                for (int i = 1; i <= 8; i++) {
-//                    //将奇偶分区
-//                    if (i % 2 == getRuntimeContext().getIndexOfThisSubtask()) {
-//                        System.out.println("生命周期开始，子任务索引是：" + getRuntimeContext().getIndexOfThisSubtask());
-//                        ctx.collect(i);
-//                    }
-//                }
-//            }
-//            @Override
-//            public void cancel() {}
-//        }).setParallelism(2);
-//        ds.rescale().print().setParallelism(2);
+        DataStreamSource<Integer> ds = env.addSource(new RichParallelSourceFunction<Integer>() {
+            @Override
+            public void run(SourceContext<Integer> ctx) throws Exception {
+                for (int i = 1; i <= 8; i++) {
+                    //将奇偶分区
+                    if (i % 2 == getRuntimeContext().getIndexOfThisSubtask()) {
+                        System.out.println("生命周期开始，子任务索引是：" + getRuntimeContext().getIndexOfThisSubtask());
+                        ctx.collect(i);
+                    }
+                }
+            }
+            @Override
+            public void cancel() {}
+        }).setParallelism(2);
+        ds.rescale().print().setParallelism(2);
 
 
 

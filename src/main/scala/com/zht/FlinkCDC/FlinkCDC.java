@@ -37,17 +37,17 @@ public class FlinkCDC {
         //2.6 设置访问 HDFS 的用户名
         System.setProperty("HADOOP_USER_NAME", "root");
         //3.创建 Flink-MySQL-CDC 的 Source
-
         DebeziumSourceFunction<String> mysqlSource = MySqlSource.<String>builder()
-        .hostname("192.168.20.62")
-        .port(3306)
-        .username("root")
-        .password("123456")
-        .databaseList("cdc_test")
-        .tableList("cdc_test.user_info") //可选配置项,如果不指定该参数,则会读取上一个配置下的所有表的数据，注意：指定的时候需要使用"db.table"的方式
-        .startupOptions(StartupOptions.initial()) //
-        .deserializer(new StringDebeziumDeserializationSchema())
+                .hostname("192.168.20.62")
+                .port(3306)
+                .username("root")
+                .password("123456")
+                .databaseList("cdc_test")
+                .tableList("cdc_test.user_info") //可选配置项,如果不指定该参数,则会读取上一个配置下的所有表的数据，注意：指定的时候需要使用"db.table"的方式
+                .startupOptions(StartupOptions.initial()) //
+                .deserializer(new StringDebeziumDeserializationSchema())
                 .build();
+
         //4.使用 CDC Source 从 MySQL 读取数据
         DataStreamSource<String> mysqlDS = env.addSource(mysqlSource);
         //5.打印数据
