@@ -6,7 +6,7 @@ import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 
 import java.util.ArrayList;
-
+//非并行的 Source，可以将一个 Collection 作为参数传入到该方法中，返回一个 DataStreamSource
 public class fromCollection {
     public static void main(String[] args) throws Exception {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
