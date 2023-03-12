@@ -29,9 +29,10 @@ public class SinkToFile {
         //  其中forBulkformat方法前面还有类型参数，以及传参要求一个目录名称，一个编码器
         //写入文件需要序列化，需要定义序列化方法并进行编码转换，当成Stream写入文件
         //然后再使用builder创建实例
-        StreamingFileSink<String> streamingFileSink = StreamingFileSink.<String>forRowFormat(new Path("./output"),new SimpleStringEncoder<>("UTF-8"))
+        StreamingFileSink<String> streamingFileSink =
+                StreamingFileSink.<String>forRowFormat(new Path("./output"),new SimpleStringEncoder<>("UTF-8"))
                 .withRollingPolicy(//指定滚动策略，根据事件或者文件大小新产生文件归档保存
-                        DefaultRollingPolicy.builder()//使用builder构建实例
+                        DefaultRollingPolicy.builder()
                                 .withMaxPartSize(1024 * 1024 * 1024)
                                 .withRolloverInterval(TimeUnit.MINUTES.toMinutes(15))//事件间隔毫秒数
                                 .withInactivityInterval(TimeUnit.MINUTES.toMinutes(15))//当前不活跃的间隔事件，隔多长事件没有数据到来

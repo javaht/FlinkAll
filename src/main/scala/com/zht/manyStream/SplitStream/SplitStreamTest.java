@@ -1,4 +1,4 @@
-package com.zht.SplitStream;
+package com.zht.manyStream.SplitStream;
 
 import com.zht.base.Watermark.ClickSource;
 import com.zht.base.transform.Event;
@@ -29,7 +29,6 @@ public class SplitStreamTest {
         //定义输出标签
         OutputTag<Tuple3<String, String, Long>> maryTag = new OutputTag<Tuple3<String, String, Long>>("Mary") {};
         OutputTag<Tuple3<String, String, Long>> bobTag = new OutputTag<Tuple3<String, String, Long>>("Bob") {};
-
 
         SingleOutputStreamOperator<Event> processStream = stream.process(new ProcessFunction<Event, Event>() {
             @Override
