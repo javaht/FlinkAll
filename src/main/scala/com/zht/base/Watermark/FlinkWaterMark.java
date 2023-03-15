@@ -18,7 +18,7 @@ public class FlinkWaterMark {
 
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         env.setParallelism(1);
-        env.getConfig().setAutoWatermarkInterval(100);//100毫秒触发一次   周期性的生成watermark
+        env.getConfig().setAutoWatermarkInterval(100);//100毫秒触发一次   周期性的生成watermark //默认是200毫秒一次
 
          env.addSource(new ClickSource())
 
