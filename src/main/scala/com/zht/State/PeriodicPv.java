@@ -40,8 +40,6 @@ public class PeriodicPv {
                                 timerState =  getRuntimeContext().getState(new ValueStateDescriptor<Long>("timerState",Long.class));
 
                             }
-
-
                             @Override
                             public void processElement(Event value, KeyedProcessFunction<String, Event, String>.Context ctx, Collector<String> out) throws Exception {
                             //每来一条数据 更新对应的count值

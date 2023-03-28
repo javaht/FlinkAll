@@ -1,4 +1,4 @@
-package com.zht.manyStream.twoStreamJoin;
+package com.zht.Stream.manyStream.twoStreamJoin;
 /*
  * @Author root
  * @Data  2022/5/26 13:36

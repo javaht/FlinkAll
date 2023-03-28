@@ -1,4 +1,4 @@
-package com.zht.manyStream.twoStreamJoin;
+package com.zht.Stream.manyStream.twoStreamJoin;
 
 import com.zht.base.transform.Event;
 import org.apache.flink.api.common.eventtime.SerializableTimestampAssigner;

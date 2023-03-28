@@ -1,4 +1,4 @@
-package com.zht.ProcessFunction.CoProcessFunction;
+package com.zht.Stream.ProcessFunction.CoProcessFunction;
 
 import org.apache.flink.streaming.api.datastream.DataStreamSource;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;

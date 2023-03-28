@@ -1,4 +1,4 @@
-package com.zht.manyStream.SplitStream;
+package com.zht.Stream.manyStream.SplitStream;
 
 import com.zht.base.Watermark.ClickSource;
 import com.zht.base.transform.Event;
