@@ -1,6 +1,6 @@
 package zht.window;
 
-import zht.bean.WaterSensor;
+import zht.base.bean.WaterSensor;
 import zht.functions.WaterSensorMapFunction;
 import org.apache.flink.api.common.functions.AggregateFunction;
 import org.apache.flink.streaming.api.datastream.KeyedStream;

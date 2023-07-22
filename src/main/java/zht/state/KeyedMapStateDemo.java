@@ -1,6 +1,6 @@
 package zht.state;
 
-import zht.bean.WaterSensor;
+import zht.base.bean.WaterSensor;
 import zht.functions.WaterSensorMapFunction;
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
 import org.apache.flink.api.common.state.MapState;

@@ -8,7 +8,7 @@ import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.api.functions.KeyedProcessFunction;
 import org.apache.flink.util.Collector;
-import zht.bean.WaterSensor;
+import zht.base.bean.WaterSensor;
 import zht.functions.WaterSensorMapFunction;
 
 
@@ -72,7 +72,6 @@ public class KeyedProcessTimerDemo {
 //                        System.out.println("当前数据=" + value + ",当前watermark=" + currentWatermark);
 
 
-
                         // 注册定时器： 处理时间、事件时间
 //                        timerService.registerProcessingTimeTimer();
 //                        timerService.registerEventTimeTimer();
@@ -84,7 +83,6 @@ public class KeyedProcessTimerDemo {
 //                        long currentTs = timerService.currentProcessingTime();
 //                        long wm = timerService.currentWatermark();
                     }
-
 
                     /**
                      * TODO 2.时间进展到定时器注册的时间，调用该方法

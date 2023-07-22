@@ -1,6 +1,6 @@
 package zht.window;
 
-import zht.bean.WaterSensor;
+import zht.base.bean.WaterSensor;
 import zht.functions.WaterSensorMapFunction;
 import org.apache.flink.streaming.api.datastream.KeyedStream;
 import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
@@ -35,8 +35,8 @@ public class WindowApiDemo {
         // TODO 1. 指定 窗口分配器： 指定 用 哪一种窗口 ---  时间 or 计数？ 滚动、滑动、会话？
         // 1.1 没有keyby的窗口: 窗口内的 所有数据 进入同一个 子任务，并行度只能为1
 //        sensorDS.windowAll()
-        // 1.2 有keyby的窗口: 每个key上都定义了一组窗口，各自独立地进行统计计算
 
+        // 1.2 有keyby的窗口: 每个key上都定义了一组窗口，各自独立地进行统计计算
         // 基于时间的
 //        sensorKS.window(TumblingProcessingTimeWindows.of(Time.seconds(10))) // 滚动窗口，窗口长度10s
 //        sensorKS.window(SlidingProcessingTimeWindows.of(Time.seconds(10), Time.seconds(2))) // 滑动窗口，窗口长度10s，滑动步长2s

@@ -7,7 +7,7 @@ import org.apache.flink.connector.jdbc.JdbcStatementBuilder;
 import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.api.functions.sink.SinkFunction;
-import zht.bean.WaterSensor;
+import zht.base.bean.WaterSensor;
 import zht.functions.WaterSensorMapFunction;
 
 import java.sql.PreparedStatement;

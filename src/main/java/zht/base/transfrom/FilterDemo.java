@@ -4,7 +4,7 @@ package zht.base.transfrom;
 import org.apache.flink.streaming.api.datastream.DataStreamSource;
 import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
-import zht.bean.WaterSensor;
+import zht.base.bean.WaterSensor;
 import zht.functions.FilterFunctionImpl;
 
 /**

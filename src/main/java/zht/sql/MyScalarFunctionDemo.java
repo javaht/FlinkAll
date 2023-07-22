@@ -1,6 +1,6 @@
 package zht.sql;
 
-import zht.bean.WaterSensor;
+import zht.base.bean.WaterSensor;
 import org.apache.flink.streaming.api.datastream.DataStreamSource;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.table.annotation.DataTypeHint;

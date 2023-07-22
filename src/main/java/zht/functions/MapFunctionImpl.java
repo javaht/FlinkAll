@@ -2,7 +2,7 @@ package zht.functions;
 
 
 import org.apache.flink.api.common.functions.MapFunction;
-import zht.bean.WaterSensor;
+import zht.base.bean.WaterSensor;
 
 /**
  * TODO

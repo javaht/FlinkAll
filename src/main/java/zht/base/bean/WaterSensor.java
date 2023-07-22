@@ -1,4 +1,4 @@
-package zht.bean;
+package zht.base.bean;
 
 import java.util.Objects;
 
